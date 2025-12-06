@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kathir | Portfolio — Dark Red</title>
+
+  <!-- Font Awesome (icons) and AOS (animations) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+
+  <style>
+    /* ---------- Fonts & Reset ---------- */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap');
+    *{ box-sizing:border-box; margin:0; padding:0; font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; }
+    a{ color:inherit; text-decoration:none; }
+
+    /* ---------- Root colors ---------- */
+    :root{
+      --bg:#070405;
+      --card:#0f0d0d;
+      --accent:#b74b4b; /* dark red */
+      --muted:#cfc6c6;
+      --glass: rgba(255,255,255,0.03);
+    }
+
+    /* ---------- Page ---------- */
+    html,body{
+      height:100%;
+      background: linear-gradient(180deg,#050405 0%, #0f0d0d 60%);
+      color:#f7f5f5;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .container{ max-width:1150px; margin:0 auto; padding:22px; }
+
+    /* ---------- Header / Nav ---------- */
+    header{
+      position:sticky;
+      top:12px;
+      z-index:80;
+      padding:10px 14px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:12px;
+      backdrop-filter: blur(6px);
+      margin:12px;
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .brand{ font-weight:700; font-size:1.45rem; color:var(--accent); letter-spacing:0.5px; }
+    .nav-links{ display:flex; gap:18px; align-items:center; }
+    .nav-links a{ color:var(--muted); font-weight:600; padding:8px 10px; border-radius:8px; transition:all .18s; }
+    .nav-links a:hover{ color:#fff; background: rgba(255,255,255,0.03); transform:translateY(-2px); }
+    .btn-ghost{ border:2px solid rgba(183,75,75,0.2); padding:8px 14px; border-radius:999px; color:var(--accent); font-weight:700; background:transparent; }
+
+    /* Mobile Hamburger */
+    .hamburger{ display:none; font-size:1.35rem; color:var(--muted); cursor:pointer; }
+
+    /* ---------- Hero ---------- */
+    .hero{
+      display:grid;
+      grid-template-columns: minmax(260px, 360px) 1fr;
+      gap:36px;
+      align-items:center;
+      padding:36px;
+      margin-top:12px;
+    }
+    .photo-wrap{ display:flex; justify-content:center; align-items:center; }
+    .photo{
+      width:320px; height:320px; border-radius:50%; overflow:hidden;
+      border:6px solid rgba(183,75,75,0.16); box-shadow:0 10px 28px rgba(0,0,0,0.6);
+      background:linear-gradient(180deg, rgba(183,75,75,0.04), rgba(0,0,0,0.06));
+      display:flex; justify-content:center; align-items:center;
+    }
+    .photo img{ width:100%; height:100%; object-fit:cover; object-position:center -24px; display:block; }
+
+    .hero-content{ padding:6px 2px; }
+    .hi{ font-size:1rem; color:var(--muted); margin-bottom:8px; }
+    h1{ font-size: clamp(1.8rem, 4vw, 2.6rem); line-height:1.02; margin-bottom:10px; color:#fff; }
+    h1 span{ color:var(--accent); text-shadow:0 6px 18px rgba(183,75,75,0.08); }
+
+    .role{ font-weight:700; font-size:1.05rem; margin-bottom:14px; color:var(--muted); display:flex; gap:8px; align-items:center; }
+    .role .rot{ color:var(--accent); font-size:1.05rem; font-weight:800; }
+
+    p.lead{ color:#dcd6d6; max-width:780px; margin-bottom:18px; line-height:1.6; font-size: clamp(0.9rem, 1.8vw, 1rem); }
+
+    .socials{ display:flex; gap:12px; margin-bottom:16px; }
+    .socials a{ width:44px; height:44px; display:inline-flex; justify-content:center; align-items:center; border-radius:50%; border:2px solid rgba(183,75,75,0.14); color:var(--accent); transition:all .18s; background:transparent; }
+    .socials a:hover{ transform:translateY(-4px); background:var(--accent); color:#fff; box-shadow:0 8px 28px rgba(183,75,75,0.12); }
+
+    .actions{ display:flex; gap:12px; flex-wrap:wrap; }
+    .primary{ background:var(--accent); color:#fff; font-weight:700; padding:10px 16px; border-radius:10px; box-shadow:0 10px 24px rgba(183,75,75,0.12); }
+    .secondary{ background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,0.04); padding:10px 14px; border-radius:10px; }
+
+    /* ---------- Sections (About / Skills / Projects / Video / Contact) ---------- */
+    section.block{
+      margin:28px 12px;
+      padding:22px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap:18px;
+      align-items:start;
+    }
+
+    h2{ color:var(--accent); margin-bottom:10px; font-size: clamp(1.1rem, 2.5vw, 1.25rem); }
+    .small{ color:var(--muted); font-size:0.95rem; margin-bottom:8px; }
+
+    /* Skills */
+    .skills{ display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
+    .skill{ background:var(--glass); color:var(--muted); padding:8px 12px; border-radius:8px; font-weight:600; border:1px solid rgba(255,255,255,0.03); }
+
+    /* Projects */
+    .projects{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+    .project{ padding:14px; border-radius:10px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.02); transition:all .25s; }
+    .project:hover{ transform:translateY(-4px); box-shadow:0 12px 28px rgba(183,75,75,0.2); }
+    .project h3{ color:#fff; margin-bottom:8px; font-size:1.05rem; }
+    .project p{ color:var(--muted); font-size:0.95rem; line-height:1.45; }
+    .tech{ margin-top:8px; color:#d7cfcf; font-size:0.85rem; }
+
+    /* Video */
+    .video-wrap{ width:100%; border-radius:10px; overflow:hidden; border:1px solid rgba(255,255,255,0.03); background:#000; }
+    .video-responsive{ position:relative; padding-bottom:56.25%; height:0; }
+    .video-responsive iframe{ position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
+
+    /* Contact card */
+    .contact-card{ padding:14px; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.0)); border:1px solid rgba(255,255,255,0.02); }
+    .contact-row{ display:flex; gap:12px; align-items:center; margin-bottom:10px; color:var(--muted); }
+
+    /* Footer */
+    footer{ text-align:center; color:var(--muted); margin:28px 12px 60px; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width:980px){
+      .hero{ grid-template-columns: 1fr; gap:20px; padding:20px; }
+      .photo{ width:260px; height:260px; margin:0 auto; }
+      .nav-links{ display:none; flex-direction:column; position:absolute; right:18px; top:62px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2)); padding:14px; border-radius:10px; z-index:99; }
+      .nav-links.show{ display:flex; }
+      .hamburger{ display:block; }
+    }
+    @media (max-width:520px){
+      h1{ font-size:1.8rem; }
+      .photo{ width:200px; height:200px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <div class="nav">
+        <div class="brand">Kathir <span style="font-weight:600;color:#fff;font-size:.92rem;margin-left:6px;">• Front-End</span></div>
+
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#video">Video</a>
+          <a href="#contact" class="btn-ghost">Contact</a>
+        </nav>
+
+        <div class="hamburger" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></div>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <main id="home" class="hero" data-aos="fade-up">
+      <div class="photo-wrap" data-aos="zoom-in">
+        <div class="photo">
+          <img src="k.png" alt="Kathir portrait">
+        </div>
+      </div>
+
+      <div class="hero-content" data-aos="fade-left">
+        <div class="hi">Hello — I'm available for internships & freelance</div>
+        <h1>Hi, I'm <span>Kathir</span></h1>
+        <div class="role">I'm a <div class="rot" id="roleRot">Front-End Developer</div></div>
+
+        <p class="lead">
+          Passionate Computer Science undergraduate at MRK Institute of Technology (B.E CSE, 2022–2026).
+          Experienced in web design (internship at SeyfertSoft) and building responsive front-end interfaces
+          using HTML, CSS, JavaScript and React.js. I enjoy turning ideas into accessible, fast web experiences.
+        </p>
+
+        <div class="socials" aria-label="social links">
+          <a href="https://github.com/" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/kathir" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://twitter.com/" target="_blank" title="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+
+        <div class="actions">
+          <a class="primary" href="Kathir_Resume-4.pdf" download>Download CV</a>
+          <a class="secondary" href="#contact">Contact Me</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- ABOUT -->
+    <section id="about" class="block" data-aos="fade-up">
+      <div class="grid-2">
+        <div>
+          <h2>About Me</h2>
+          <p class="small">A short summary from your resume</p>
+          <p>I am a motivated front-end developer and computer science undergraduate. I completed a web design internship at SeyfertSoft (July 2025) and built multiple UI projects. My focus is responsive design, performance, and accessibility.</p>
+        </div>
+        <div>
+          <h2>Education & Personal</h2>
+          <p class="small">MRK Institute of Technology — B.E (CSE) 2022–2026 (CGPA: 85% pursuing)</p>
+          <p class="small">Location: Chennai • DOB: January 30, 2004</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="block" data-aos="fade-up">
+      <h2>Skills</h2>
+      <p class="small">Languages, tools & frameworks I use</p>
+      <div class="skills">
+        <div class="skill">HTML5</div>
+        <div class="skill">CSS3</div>
+        <div class="skill">JavaScript (ES6+)</div>
+        <div class="skill">React.js</div>
+        <div class="skill">Bootstrap</div>
+        <div class="skill">jQuery</div>
+        <div class="skill">REST API</div>
+        <div class="skill">Git & GitHub</div>
+        <div class="skill">Responsive Design</div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="block" data-aos="fade-up">
+      <h2>Projects</h2>
+      <p class="small">Selected projects (summary)</p>
+      <div class="projects" aria-live="polite">
+        <article class="project" data-aos="zoom-in">
+          <h3>Horror Movie Website</h3>
+          <p>Responsive promotional site built with HTML, CSS & JS. Includes animations and responsive layouts for mobile and desktop.</p>
+          <div class="tech">Tech: HTML • CSS • JS</div>
+        </article>
+
+        <article class="project" data-aos="zoom-in" data-aos-delay="80">
+          <h3>React Task Manager</h3>
+          <p>A single-page task manager with add/edit/delete, state stored in localStorage. Demonstrates React fundamentals and component state.</p>
+          <div class="tech">Tech: React.js • LocalStorage</div>
+        </article>
+
+        <article class="project" data-aos="zoom-in" data-aos-delay="160">
+          <h3>Personal Portfolio (this site)</h3>
+          <p>Portfolio showcasing resume, projects, contact and a demo video. Built to be responsive and easy to update.</p>
+          <div class="tech">Tech: HTML • CSS • JS</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="block" data-aos="fade-up">
+      <h2>Contact</h2>
+      <div class="grid-2">
+        <div class="contact-card">
+          <div class="contact-row"><i class="fa-regular fa-envelope" style="width:26px;color:var(--accent)"></i><div><strong>Email</strong><div style="color:var(--muted)">kathirmuruganramu@gmail.com</div></div></div>
+          <div class="contact-row"><i class="fa-solid fa-phone" style="width:26px;color:var(--accent)"></i><div><strong>Phone</strong><div style="color:var(--muted)">+91 87546 34825</div></div></div>
+          <div class="contact-row"><i class="fa-brands fa-linkedin" style="width:26px;color:var(--accent)"></i><div><strong>LinkedIn</strong><div style="color:var(--muted)"><a href="https://www.linkedin.com/in/kathir" target="_blank">linkedin.com/in/kathir</a></div></div></div>
+        </div>
+        <div class="contact-card">
+          <h3 style="color:#fff;margin-bottom:10px">Quick Message</h3>
+          <p style="color:var(--muted);margin-bottom:10px">Want me to review your front-end task, collaborate, or hire? Email me or use the contact link.</p>
+          <a href="mailto:kathirmuruganramu@gmail.com" class="primary">Send Email</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <small>© 2025 Kathir.M</small>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({ offset: 80, duration: 700, once: false });
+
+    // Rotate role text
+    const roles = ['Front-End Developer','React.js Developer','Web Designer','Problem Solver'];
+    let rIdx = 0;
+    const roleEl = document.getElementById('roleRot');
+    function rotateRole(){
+      roleEl.textContent = roles[rIdx];
+      rIdx = (rIdx + 1) % roles.length;
+    }
+    rotateRole();
+    setInterval(rotateRole, 2600);
+
+    // Mobile menu toggle
+    function toggleMobileMenu(){
+      const links = document.querySelector('.nav-links');
+      links.classList.toggle('show');
+    }
+
+    // Smooth scroll for anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        const href = this.getAttribute('href');
+        if(href.length>1){
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({behavior:'smooth', block:'start'});
+          const links = document.querySelector('.nav-links');
+          links.classList.remove('show');
+        }
+      });
+    });
+  </script>
+</body>  
+</html>
